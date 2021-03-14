@@ -1,10 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar.js';
 import Header from '../components/Header.js';
 import Table from '../components/Table.js';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import { getCourses, getAttendenceCode, deleteAttendenceCode } from '../Api/Requests';
 
 function Sessions() {
+	const [courses, setCourses] = useState([]);
+	const [currentUser, setCurrentUser] = useState({});
+	const history = useHistory();
+
+	function validateUserLogin() {
+		try {
+			const token = localStorage.getItem('token');
+			if (token) {
+				const currentUser = jwtDecode(token);
+				console.log(currentUser);
+				setCurrentUser(currentUser);
+				return currentUser;
+			} else {
+				let path = `/login`;
+				history.push(path);
+			}
+		} catch (error) {}
+	}
+	const loadCourses = async (currentUser) => {
+		try {
+			const { data } = await getCourses(currentUser._id);
+			setCourses(data);
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	useEffect(() => {
+		let validatedUser = validateUserLogin();
+		loadCourses(validatedUser);
+	}, []);
+
 	return (
 		<>
 			<Navbar />
@@ -36,7 +70,7 @@ function Sessions() {
 										<div className=" w-full pr-4 max-w-full flex-grow flex-auto">
 											<span className="flex justify-center uppercase text-purple-800 mr-0 whitespace-no-wrap text-3xl font-bold p-4 px-0">
 												{/*Table*/}
-												<Table />
+												<Table data={courses} />
 											</span>
 										</div>
 									</div>
