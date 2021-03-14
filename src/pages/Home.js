@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar.js';
 import Header from '../components/Header.js';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Home() {
+	const [currentUser, setCurrentUser] = useState({});
+	const history = useHistory();
+
+	function validateUserLogin() {
+		try {
+			const token = localStorage.getItem('token');
+			if (token) {
+				const currentUser = jwtDecode(token);
+				console.log(currentUser);
+				setCurrentUser(currentUser);
+				return currentUser;
+			} else {
+				let path = `/login`;
+				history.push(path);
+			}
+		} catch (error) {}
+	}
+	useEffect(() => {
+		let validatedUser = validateUserLogin();
+		loadCourses(validatedUser);
+	}, []);
 	return (
 		<>
 			<Navbar />
