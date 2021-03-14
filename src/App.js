@@ -1,10 +1,13 @@
 import './App.css';
-import Navbar from './components/Navbar';
-import Header from './components/Header';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home.js';
 import NewClass from './pages/NewClass.js';
 import Sessions from './pages/Sessions.js';
+import NewSession from './pages/NewSession.js';
+import MarkAttendence from './pages/MarkAttendence.js';
+import Login from './pages/Login.js';
+import Register from './pages/Register.js';
 
 function App() {
 	return (
@@ -12,8 +15,12 @@ function App() {
 			{/* ROUTES */}
 			<Switch>
 				<Route path="/" exact component={Home} />
-				<Route path="/newclass" component={NewClass} />
-				<Route path="/sessions" component={Sessions} />
+				<Route path="/newclass" exact component={NewClass} />
+				<Route path="/sessions" exact component={Sessions} />
+				<Route path="/newsession" exact component={NewSession} />
+				<Route path="/markattendence" exact component={MarkAttendence} />
+				<Route path="/login" exact component={Login} />
+				<Route path="/register" exact component={Register} />
 			</Switch>
 		</>
 	);
