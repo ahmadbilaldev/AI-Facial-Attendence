@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar.js';
 import Header from '../components/Header.js';
 import { Link, useHistory } from 'react-router-dom';
+import { getCourses, getAttendenceCode, deleteAttendenceCode } from '../Api/Requests';
+import jwtDecode from 'jwt-decode';
 
 function Home() {
+	// States
+	const [courses, setCourses] = useState([]);
 	const [currentUser, setCurrentUser] = useState({});
+	const [generatedCode, setGeneratedCode] = useState('');
 	const history = useHistory();
 
 	function validateUserLogin() {
@@ -108,69 +113,57 @@ function Home() {
 																/>
 															</label>
 
-										<div className="relative w-auto pl-4 flex-initial">
-											<div className=" p-3 text-center inline-flex items-center justify-center w-16 h-16">
-												<svg
-													class="w-16 h-16"
-													fill="none"
-													stroke="currentColor"
-													viewBox="0 0 24 24"
-													xmlns="http://www.w3.org/2000/svg"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="2"
-														d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-													></path>
-												</svg>
+															<label class="flex flex-col items-center px-4 py-6 mt-2 rounded text-gray-600 border border-gray-500 cursor-pointer hover:text-purple-600 hover:border-purple-600">
+																<svg
+																	class="w-8 h-8"
+																	fill="none"
+																	stroke="currentColor"
+																	viewBox="0 0 24 24"
+																	xmlns="http://www.w3.org/2000/svg"
+																>
+																	<path
+																		stroke-linecap="round"
+																		stroke-linejoin="round"
+																		stroke-width="2"
+																		d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+																	></path>
+																</svg>
+																<span class="mt-1 font-semibold">Copy Code</span>
+															</label>
+															<button
+																class="mt-6 flex flex-col items-center px-2 py-4 rounded text-white cursor-pointer bg-purple-800 transition duration-300 hover:text-yellow-400 focus:border-white"
+																onClick={() => deleteCode(course._id)}
+															>
+																<span class="font-semibold uppercase">End Session</span>
+															</button>
+														</div>
+													) : null}
+												</p>
 											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="w-full lg:w-6/12 xl:w-6/12 px-4">
-							<div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-								<div className="flex-auto p-4">
-									<div className="flex flex-wrap">
-										<div className="relative w-full pr-4 max-w-full flex-grow flex-1">
-											<h5 className="text-gray-800 uppercase font-bold text-lg">
-												CS-411 Programming Languages
-											</h5>
-											<span className="mt-4 text-sm text-grey-500">42 Students</span>
 
-											<p className="mt-8">
-												<button className="bg-purple-800 text-white uppercase rounded p-2 font-bold text-base">
-													Start session
-												</button>
-											</p>
-											{/* <p className="text-sm text-gray-500 mt-4">
-												<span className="whitespace-no-wrap text-red-800">Delete Course</span>
-											</p> */}
-										</div>
-										<div className="relative w-auto pl-4 flex-initial">
-											<div className=" p-3 text-center inline-flex items-center justify-center w-16 h-16">
-												<svg
-													class="w-16 h-16"
-													fill="none"
-													stroke="currentColor"
-													viewBox="0 0 24 24"
-													xmlns="http://www.w3.org/2000/svg"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="2"
-														d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-													></path>
-												</svg>
+											<div className="relative w-auto pl-4 flex-initial">
+												<div className=" p-3 text-center inline-flex items-center justify-center w-16 h-16">
+													<svg
+														class="w-16 h-16"
+														fill="none"
+														stroke="currentColor"
+														viewBox="0 0 24 24"
+														xmlns="http://www.w3.org/2000/svg"
+													>
+														<path
+															stroke-linecap="round"
+															stroke-linejoin="round"
+															stroke-width="2"
+															d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+														></path>
+													</svg>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						))}
 					</div>
 				</div>
 			</div>
