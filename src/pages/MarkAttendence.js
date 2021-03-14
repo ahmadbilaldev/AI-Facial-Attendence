@@ -5,12 +5,37 @@ import { Link } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import { postAttendenceCode, postMarkAttendence } from '../Api/Requests.js';
 
+function MarkAttendence() {
 	const webcamRef = useRef(null);
 	const [imgSrc, setImgSrc] = useState(null);
+	const [regNumber, setRegNumber] = useState('');
+	const [attendenceCode, setAttendenceCode] = useState('');
+	const [validateCode, setValidateCode] = useState({});
+
 	const capture = React.useCallback(() => {
 		const imageSrc = webcamRef.current.getScreenshot();
 		setImgSrc(imageSrc);
 	}, [webcamRef, setImgSrc]);
+
+	const markAttendance = async (e) => {
+		e.preventDefault();
+		// creating formdata
+		let data = new FormData();
+		// Convert base 64 image to blob, otherwise model wont recognize
+		const blob = await fetch(imgSrc).then((res) => res.blob());
+		// const blob = imgSrc;
+		console.log(imgSrc);
+		data.append(regNumber, blob);
+
+		try {
+			const { data: res } = await postMarkAttendence(validateCode._id, regNumber, data);
+			console.log(res);
+			alert('Attendence is marked');
+		} catch (error) {
+			console.log(error);
+			alert('Attendence is not marked');
+		}
+	};
 
 	async function triggerValidateCode() {
 		try {
@@ -21,6 +46,25 @@ import { postAttendenceCode, postMarkAttendence } from '../Api/Requests.js';
 			console.log(error);
 		}
 	}
+
+	return (
+		<>
+			<Navbar />
+			<div className="relative md:ml-64">
+				<Header />
+				<div className="relative bg-purple-800 md:pt-32 pb-32 pt-12">
+					{/* Card */}
+					<div className="flex flex-wrap">
+						<div className="w-full px-10">
+							<div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+								<div className="flex-auto p-4">
+									<div className="flex flex-wrap">
+										<div className=" w-full pr-4 max-w-full flex-grow flex-auto">
+											<span className="flex justify-center uppercase text-purple-800 hover:text-yellow-500 mr-0 whitespace-no-wrap text-3xl font-bold p-4 px-0">
+												Mark Attendence
+											</span>
+										</div>
+									</div>
 									{validateCode._id ? null : (
 										<div class="flex flex-col px-80 mt-6 mb-4">
 											<label class="flex flex-col justify-center" id="code">
@@ -41,6 +85,20 @@ import { postAttendenceCode, postMarkAttendence } from '../Api/Requests.js';
 											</button>
 										</div>
 									)}
+
+									{/* asd */}
+									{validateCode._id ? (
+										<div class="flex flex-col px-80 mt-6 mb-4">
+											<label class="flex flex-col justify-center">
+												<span class="text-gray-600 font-semibold">Class/Course Name</span>
+												<input
+													type="text"
+													readOnly
+													class="form-input mt-2 block focus:border-purple-800 rounded"
+													value={validateCode.name}
+												/>
+											</label>
+
 											<label class="flex flex-col mt-6">
 												<span class="text-gray-600 font-semibold">Take Photo</span>
 												<span class="text-gray-600 font-light">
@@ -86,3 +144,31 @@ import { postAttendenceCode, postMarkAttendence } from '../Api/Requests.js';
 														</span>
 													)}
 												</div>
+											</label>
+											<label class="flex flex-col mt-6">
+												<span class="text-gray-600 font-semibold">Registration Number: </span>
+												<input
+													type="text"
+													onChange={(e) => setRegNumber(e.target.value)}
+													class="form-input mt-2 block focus:border-purple-800 rounded"
+													placeholder=""
+												/>
+											</label>
+											<button
+												class="mt-6 flex flex-col items-center px-2 py-4 rounded text-white cursor-pointer bg-purple-800 hover:bg-yellow-500 focus:border-white"
+												onClick={(e) => markAttendance(e)}
+											>
+												<span class="font-semibold uppercase">Mark Present</span>
+											</button>
+										</div>
+									) : null}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+}
+export default MarkAttendence;
