@@ -21,6 +21,34 @@ function Home() {
 			}
 		} catch (error) {}
 	}
+
+	const loadCourses = async (currentUser) => {
+		try {
+			const { data } = await getCourses(currentUser._id);
+			setCourses(data);
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	async function generateCode(courseId) {
+		try {
+			let { data } = await getAttendenceCode(courseId);
+			setGeneratedCode(data);
+			console.log(generatedCode);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async function deleteCode(courseId) {
+		try {
+			await deleteAttendenceCode(courseId);
+			setGeneratedCode('');
+		} catch (error) {}
+	}
+
 	useEffect(() => {
 		let validatedUser = validateUserLogin();
 		loadCourses(validatedUser);
