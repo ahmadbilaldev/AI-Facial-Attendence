@@ -12,6 +12,35 @@ import { postAttendenceCode, postMarkAttendence } from '../Api/Requests.js';
 		setImgSrc(imageSrc);
 	}, [webcamRef, setImgSrc]);
 
+	async function triggerValidateCode() {
+		try {
+			let { data } = await postAttendenceCode({ attendanceCode: attendenceCode });
+			setValidateCode(data);
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+									{validateCode._id ? null : (
+										<div class="flex flex-col px-80 mt-6 mb-4">
+											<label class="flex flex-col justify-center" id="code">
+												<span class="text-gray-600 font-semibold">Enter Attendence Code</span>
+												<input
+													type="text"
+													id="code"
+													class="form-input mt-2 block focus:border-purple-800 rounded"
+													onChange={(e) => setAttendenceCode(e.target.value)}
+												/>
+											</label>
+
+											<button
+												class="mt-6 flex flex-col items-center px-2 py-4 rounded text-white cursor-pointer bg-purple-800 hover:bg-yellow-500 focus:border-white"
+												onClick={() => triggerValidateCode()}
+											>
+												<span class="font-semibold uppercase">Next</span>
+											</button>
+										</div>
+									)}
 											<label class="flex flex-col mt-6">
 												<span class="text-gray-600 font-semibold">Take Photo</span>
 												<span class="text-gray-600 font-light">
