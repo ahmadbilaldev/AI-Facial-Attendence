@@ -40,25 +40,45 @@ function Home() {
 						</span>
 					</div>
 					<div className="flex flex-wrap">
-						<div className="w-full lg:w-6/12 xl:w-6/12 px-4">
-							<div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
-								<div className="flex-auto p-4">
-									<div className="flex flex-wrap">
-										<div className="relative w-full pr-4 max-w-full flex-grow flex-1">
-											<h5 className="text-gray-800 uppercase font-bold text-lg">
-												CS-311 Artificial Intelligence
-											</h5>
-											<span className="mt-4 text-sm text-grey-500">42 Students</span>
-											<p className="mt-8">
-												<button className="bg-purple-800 text-white uppercase rounded p-2 font-bold text-base hover:bg-yellow-500">
-													Start session
-												</button>
-											</p>
-
-											{/* <p className="text-sm text-gray-500 mt-4">
-												<span className="whitespace-no-wrap text-red-600">Delete Course</span>
-											</p> */}
-										</div>
+						{courses.map((course, index) => (
+							<div className="w-full lg:w-6/12 xl:w-6/12 px-4 py-4" id={index}>
+								<div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+									<div className="flex-auto p-4">
+										<div className="flex flex-wrap">
+											<div className="relative w-full pr-4 max-w-full flex-grow flex-1">
+												<h5 className="text-gray-800 uppercase font-bold text-lg">
+													{course.name}
+												</h5>
+												<span className="mt-4 text-sm text-grey-500">
+													{course.numberOfStudents} Students
+												</span>
+												<p className="mt-8">
+													{generatedCode.courseID === course._id ? null : (
+														<button
+															className="bg-purple-800 text-white uppercase rounded p-2 font-bold text-base transition duration-300 hover:bg-yellow-500"
+															onClick={() => generateCode(course._id)}
+														>
+															Start session
+														</button>
+													)}
+													{generatedCode.courseID === course._id ? (
+														<div class="flex text-center flex-col items-center justify-center mt-6 mb-4">
+															<label class="flex flex-col mt-6">
+																<span class="text-gray-600 font-semibold">
+																	Attendence Code
+																</span>
+																<span class="text-gray-600 font-light">
+																	Share the code with the class. Students should paste
+																	this code on the '/markattendence' page to to mark
+																	attendence.
+																</span>
+																<input
+																	type="text"
+																	readOnly
+																	class="form-input mt-4 text-center focus:border-purple-800 rounded"
+																	value={generatedCode.attendanceCode}
+																/>
+															</label>
 
 										<div className="relative w-auto pl-4 flex-initial">
 											<div className=" p-3 text-center inline-flex items-center justify-center w-16 h-16">
