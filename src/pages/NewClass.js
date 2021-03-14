@@ -1,9 +1,85 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar.js';
 import Header from '../components/Header.js';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { postCreateCourse, postTrainModel } from '../Api/Requests';
+import jwtDecode from 'jwt-decode';
 
-function NewClass() {
+function NewClass(props) {
+	// States
+	const [currentUser, setCurrentUser] = useState('');
+	const [courseName, setCourseName] = useState('');
+	const [studentNumber, setStudentNumber] = useState('');
+	const [images, setImages] = useState('');
+	const history = useHistory();
+
+	const modelImages = (event) => {
+		let images = [];
+		for (var i = 0; i < event.target.files.length; i++) {
+			images[i] = event.target.files.item(i);
+		}
+		images = images.filter((image) => image.name.match(/\.(jpg|jpeg|png|gif)$/));
+		let message = `${images.length} valid image(s) selected`;
+
+		console.log(images[0]);
+		setImages(images);
+	};
+
+	function validateUserLogin() {
+		try {
+			const token = localStorage.getItem('token');
+			if (token) {
+				const currentUser = jwtDecode(token);
+				console.log(currentUser);
+				setCurrentUser(currentUser);
+			} else {
+				let path = `/login`;
+				history.push(path);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	const trainModel = async (courseId) => {
+		// creating formdata
+		let data = new FormData();
+		images.map((image) => {
+			data.append(image.name, image);
+		});
+
+		try {
+			const { data: res } = await postTrainModel(courseId, data);
+			// console.log(res);
+			let path = `/`;
+			history.push(path);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	async function createClass(e) {
+		e.preventDefault();
+		let body = {
+			name: courseName,
+			numberOfStudents: studentNumber,
+			teacherId: currentUser._id,
+		};
+
+		try {
+			const { data } = await postCreateCourse(body);
+			let courseId = data._id;
+			console.log(data);
+			await trainModel(courseId);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	useEffect(() => {
+		validateUserLogin();
+	}, []);
 	return (
 		<>
 			<Navbar />
@@ -27,6 +103,7 @@ function NewClass() {
 											<span class="text-gray-600 font-semibold">Class/Course Name</span>
 											<input
 												type="text"
+												onChange={(e) => setCourseName(e.target.value)}
 												class="form-input mt-2 block focus:border-purple-800 rounded"
 												placeholder="eg: CS-311 Artificial Intelligence"
 											/>
@@ -37,6 +114,7 @@ function NewClass() {
 											</span>
 											<input
 												type="number"
+												onChange={(e) => setStudentNumber(e.target.value)}
 												class="form-input mt-2 block focus:border-purple-800 rounded"
 												placeholder=""
 											/>
@@ -60,9 +138,17 @@ function NewClass() {
 												<path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
 											</svg>
 											<span class="mt-1 font-semibold">Choose a file</span>
-											<input type="file" class="hidden" />
+											<input
+												type="file"
+												multiple
+												class="hidden"
+												onChange={(e) => modelImages(e)}
+											/>
 										</label>
-										<button class="mt-6 flex flex-col items-center px-2 py-4 rounded text-white cursor-pointer bg-purple-800 hover:bg-yellow-500 focus:border-white">
+										<button
+											class="mt-6 flex flex-col items-center px-2 py-4 rounded text-white cursor-pointer bg-purple-800 hover:bg-yellow-500 focus:border-white"
+											onClick={(e) => createClass(e)}
+										>
 											<span class="font-semibold uppercase">Save</span>
 										</button>
 									</div>
