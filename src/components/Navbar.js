@@ -1,8 +1,23 @@
-import React from 'react';
+import jwtDecode from 'jwt-decode';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { NavbarData } from './NavbarData';
+import { NavbarDataTeacher, NavbarDataStudent } from './NavbarData';
 
 function Navbar() {
+	const [currentUser, setCurrentUser] = useState({});
+	function validateUserLogin() {
+		try {
+			const token = localStorage.getItem('token');
+			if (token) {
+				const currentUser = jwtDecode(token);
+				setCurrentUser(currentUser);
+			}
+		} catch (error) {}
+	}
+
+	useEffect(() => {
+		validateUserLogin();
+	}, []);
 	return (
 		<>
 			<nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6 rounded">
@@ -22,20 +37,43 @@ function Navbar() {
 						}
 					>
 						{/* Navigation */}
+
 						<ul className="md:flex-col md:min-w-full flex flex-col list-none">
-							{NavbarData.map((item, index) => {
-								return (
+							{currentUser._id
+								? NavbarDataTeacher.map((item, index) => (
+										<li className="items-center">
+											<Link
+												className="text-purple-800 hover:text-yellow-500 text-lg uppercase py-3 font-bold block items-center justify-between whitespace-nowrap space-x-3"
+												to={item.path}
+											>
+												<span>{item.icon}</span>
+												<span>{item.title}</span>
+											</Link>
+										</li>
+								  ))
+								: NavbarDataStudent.map((item, index) => (
+										<li className="items-center">
+											<Link
+												className="text-purple-800 hover:text-yellow-500 text-lg uppercase py-3 font-bold block items-center justify-between whitespace-nowrap space-x-3"
+												to={item.path}
+											>
+												<span>{item.icon}</span>
+												<span>{item.title}</span>
+											</Link>
+										</li>
+								  ))}
+							{/* {!currentUser &&
+								NavbarDataStudent.map((item, index) => (
 									<li className="items-center">
 										<Link
-											className="text-purple-800 hover:text-yellow-500 text-lg uppercase py-3 font-bold block items-center justify-between space-x-3"
+											className="text-purple-800 hover:text-yellow-500 text-lg uppercase py-3 font-bold block items-center justify-between whitespace-nowrap space-x-3"
 											to={item.path}
 										>
 											<span>{item.icon}</span>
 											<span>{item.title}</span>
 										</Link>
 									</li>
-								);
-							})}
+								))} */}
 						</ul>
 					</div>
 				</div>
