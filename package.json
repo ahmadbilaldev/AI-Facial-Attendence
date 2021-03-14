@@ -11,11 +11,13 @@
     "@testing-library/user-event": "^12.1.10",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
+    "jwt-decode": "^3.1.2",
     "postcss": "^7.0.35",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-webcam": "^5.2.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "web-vitals": "^0.2.4"
   },
