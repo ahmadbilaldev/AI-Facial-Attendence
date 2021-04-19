@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { getUserLogin } from '../Api/Requests';
-import jwt from 'jsonwebtoken';
 
 function Login(props) {
 	const [email, setEmail] = useState('');
@@ -109,7 +108,10 @@ function Login(props) {
 														</div>
 
 														<div class="text-sm">
-															<Link href="#" class="font-medium hover:text-purple-800">
+															<Link
+																to="/register"
+																class="font-medium hover:text-purple-800"
+															>
 																Create a new account
 															</Link>
 														</div>
