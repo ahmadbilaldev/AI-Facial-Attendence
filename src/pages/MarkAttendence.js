@@ -30,7 +30,11 @@ function MarkAttendence() {
 		try {
 			const { data: res } = await postMarkAttendence(validateCode._id, regNumber, data);
 			console.log(res);
-			alert('Attendence is marked');
+			if (res == 0) {
+				alert('Attendence is not marked');
+			} else {
+				alert('Attendence is marked');
+			}
 		} catch (error) {
 			console.log(error);
 			alert('Attendence is not marked');
