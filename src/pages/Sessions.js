@@ -44,7 +44,7 @@ function Sessions() {
 			<Navbar />
 			<div className="relative md:ml-64">
 				<Header />
-				<div className="relative bg-purple-800 md:pt-32 pb-32 pt-12">
+				<div className="relative bg-gradient-to-r from-purple-800 to-indigo-900 bg-purple-800 md:pt-32 pb-32 pt-12">
 					{/* Card */}
 					<div className="flex flex-wrap">
 						<div className="w-full px-10">

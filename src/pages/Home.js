@@ -63,7 +63,7 @@ function Home() {
 			<Navbar />
 			<div className="relative md:ml-64">
 				<Header />
-				<div className="relative bg-purple-800 md:pt-32 pb-32 pt-12">
+				<div className="relative bg-gradient-to-r from-purple-800 to-indigo-900 md:pt-32 pb-32 pt-12">
 					<div className="w-full pr-4 mb-16 max-w-full flex-grow flex-auto">
 						<span className="flex justify-center uppercase text-white hover:text-yellow-500 mr-0 whitespace-no-wrap text-3xl font-bold px-0">
 							Current Classes
