@@ -12,9 +12,7 @@ export default function Navbar() {
 						Dashboard
 					</Link>
 					{/* User */}
-					<ul className="flex-col md:flex-row list-none items-center md:flex text-white text-sm uppercase lg:inline-block font-semibold">
-						Username
-					</ul>
+					<ul className="flex-col md:flex-row list-none items-center md:flex text-white text-sm uppercase lg:inline-block font-semibold"></ul>
 				</div>
 			</nav>
 			{/* End Navbar */}

@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { getCourseAttendence } from '../Api/Requests.js';
 import { TableData, TableInfo } from './TableData.js';
+const FileDownload = require('js-file-download');
 
 function Table(props) {
 	const [courseAttendence, setCourseAttendence] = useState('');
-	async function getAttendenceReport(courseId) {
+
+	async function getAttendenceReport(courseId, courseName) {
 		try {
+			console.log('sas');
 			const { data } = await getCourseAttendence(courseId);
 			setCourseAttendence(data);
+			FileDownload(data, courseName + '-Attendence.csv');
+
 			console.log(data);
 		} catch (error) {}
 	}
@@ -58,7 +62,7 @@ function Table(props) {
 								<td class="pr-4 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
 									<button
 										class="px-6 py-2 border-purple-800 border text-purple-800 rounded transition duration-300 hover:bg-purple-800 hover:text-white focus:outline-none"
-										onClick={() => getAttendenceReport(course._id)}
+										onClick={() => getAttendenceReport(course._id, course.name)}
 									>
 										Generate Report
 									</button>
