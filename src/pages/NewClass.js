@@ -21,7 +21,7 @@ function NewClass(props) {
 		}
 		images = images.filter((image) => image.name.match(/\.(jpg|jpeg|png|gif)$/));
 		let message = `${images.length} valid image(s) selected`;
-
+		alert(message);
 		console.log(images[0]);
 		setImages(images);
 	};
