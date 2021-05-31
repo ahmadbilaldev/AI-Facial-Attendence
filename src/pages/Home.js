@@ -61,21 +61,21 @@ function Home() {
 	return (
 		<>
 			<Navbar />
-			<div className="relative md:ml-64">
+			<div className="relative md:ml-64 bg-gray-900 p-1">
 				<Header />
-				<div className="relative bg-gradient-to-r from-purple-800 to-indigo-900 md:pt-32 pb-32 pt-12">
+				<div className="relative bg-gradient-to-r from-gray-800 to-purple-900 md:pt-32 pb-32 pt-12 rounded-2xl">
 					<div className="w-full pr-4 mb-16 max-w-full flex-grow flex-auto">
-						<span className="flex justify-center uppercase text-white hover:text-yellow-500 mr-0 whitespace-no-wrap text-3xl font-bold px-0">
+						<span className="flex justify-center uppercase text-white mr-0 whitespace-no-wrap text-3xl font-bold px-0">
 							Current Classes
 						</span>
 						<span className="flex justify-center text-white mr-0 whitespace-no-wrap text-sm pt-2">
 							Current courses will be showed here
 						</span>
 					</div>
-					<div className="flex flex-wrap">
+					<div className="flex flex-wrap px-2">
 						{courses.map((course, index) => (
 							<div className="w-full lg:w-6/12 xl:w-6/12 px-4 py-4" id={index}>
-								<div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+								<div className="relative flex flex-col min-w-0 break-words bg-white rounded-lg mb-6 xl:mb-0 shadow-lg">
 									<div className="flex-auto p-4">
 										<div className="flex flex-wrap">
 											<div className="relative w-full pr-4 max-w-full flex-grow flex-1">

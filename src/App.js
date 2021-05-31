@@ -11,15 +11,17 @@ import Register from './pages/Register.js';
 function App() {
 	return (
 		<>
-			{/* ROUTES */}
-			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/newclass" exact component={NewClass} />
-				<Route path="/sessions" exact component={Sessions} />
-				<Route path="/markattendence" exact component={MarkAttendence} />
-				<Route path="/login" exact component={Login} />
-				<Route path="/register" exact component={Register} />
-			</Switch>
+			<div className="bg-gray-900 min-h-screen">
+				{/* ROUTES */}
+				<Switch>
+					<Route path="/" exact component={Home} />
+					<Route path="/newclass" exact component={NewClass} />
+					<Route path="/sessions" exact component={Sessions} />
+					<Route path="/markattendence" exact component={MarkAttendence} />
+					<Route path="/login" exact component={Login} />
+					<Route path="/register" exact component={Register} />
+				</Switch>
+			</div>
 		</>
 	);
 }

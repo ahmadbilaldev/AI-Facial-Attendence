@@ -42,9 +42,9 @@ function Sessions() {
 	return (
 		<>
 			<Navbar />
-			<div className="relative md:ml-64">
+			<div className="relative md:ml-64 p-1">
 				<Header />
-				<div className="relative bg-gradient-to-r from-purple-800 to-indigo-900 bg-purple-800 md:pt-32 pb-32 pt-12">
+				<div className="relative bg-gradient-to-r from-gray-800 to-purple-900 md:pt-32 pb-32 pt-12 rounded-2xl">
 					{/* Card */}
 					<div className="flex flex-wrap">
 						<div className="w-full px-10">
