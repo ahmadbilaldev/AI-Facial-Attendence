@@ -88,10 +88,10 @@ function Home() {
 												<p className="mt-8">
 													{generatedCode.courseID === course._id ? null : (
 														<button
-															className="bg-purple-800 text-white uppercase rounded p-2 font-bold text-base transition duration-300 hover:bg-yellow-500"
+															className="bg-purple-800 text-white rounded p-2 font-bold text-base transition duration-300 hover:bg-yellow-500"
 															onClick={() => generateCode(course._id)}
 														>
-															Start session
+															Start Session
 														</button>
 													)}
 													{generatedCode.courseID === course._id ? (
