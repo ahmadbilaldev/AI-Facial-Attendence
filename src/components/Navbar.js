@@ -24,16 +24,15 @@ function Navbar() {
 				<div className="md:flex-col md:items-stretch md:min-h-full md:flex-no-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
 					{/* Brand */}
 					<Link
-						className="md:block text-left md:pb-2 text-purple-800 hover:text-yellow-500 mr-0 inline-block whitespace-no-wrap text-2xl uppercase font-bold p-4 px-0"
+						className="md:block text-left md:pb-2 text-white mr-0 inline-block whitespace-no-wrap text-2xl font-bold p-4 mt-4"
 						to="/"
 					>
 						Attendence Portal
 					</Link>
-					{/* Divider */}
-					<hr className="my-4 md:min-w-full bg-purple-800" />
+
 					<div
 						className={
-							'md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-8 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded '
+							'md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-12 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1'
 						}
 					>
 						{/* Navigation */}
@@ -43,7 +42,7 @@ function Navbar() {
 								? NavbarDataTeacher.map((item, index) => (
 										<li className="items-center">
 											<Link
-												className="text-purple-800 hover:text-yellow-500 text-lg uppercase py-3 font-bold block items-center justify-between whitespace-nowrap space-x-3"
+												className="text-white rounded-r-xl hover:bg-purple-900 text-base py-3 pl-5 mb-6 font-bold block items-center  whitespace-nowrap space-x-3"
 												to={item.path}
 											>
 												<span>{item.icon}</span>
@@ -62,18 +61,6 @@ function Navbar() {
 											</Link>
 										</li>
 								  ))}
-							{/* {!currentUser &&
-								NavbarDataStudent.map((item, index) => (
-									<li className="items-center">
-										<Link
-											className="text-purple-800 hover:text-yellow-500 text-lg uppercase py-3 font-bold block items-center justify-between whitespace-nowrap space-x-3"
-											to={item.path}
-										>
-											<span>{item.icon}</span>
-											<span>{item.title}</span>
-										</Link>
-									</li>
-								))} */}
 						</ul>
 					</div>
 				</div>
