@@ -5,9 +5,9 @@ Complete Web App for taking online attendance using AI based Facial Recognition.
 </br>
 
 
-# USE
+## Setup
 
-## 1. Install (Front-end)
+### 1. Install Front-end
 
 To run the front-end:
 
@@ -22,7 +22,7 @@ npm install
 npm start
 ```
 
-## 2. Install Back-end
+### 2. Install Back-end
 
 - The project requires python 3.7. Other versions may create issues.
 
@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ```
 - Run main.py
 
-## 3. Connect front-end to back-end
+### 3. Connect front-end to back-end
 
 - Note the local host url the backend server is running at (as given in the terminal output). 
 Paste this url in `config/api.js` eg: 
