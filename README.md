@@ -1,6 +1,6 @@
 ![banner](https://user-images.githubusercontent.com/19692245/115225089-1e5add80-a127-11eb-8585-3ef56d46a7ba.jpg)
 <h4 align="center">
-Complete Web App for taking online attendance using AI based Facial Recognition. Designed from scratch using React + Tailwind with Python backend.
+Complete Web App for taking online attendance using AI based Facial Recognition. Designed from scratch using React + Tailwind with Python backend. OpenCV used for Face detection and recognition.
 <br>
 </br>
 
